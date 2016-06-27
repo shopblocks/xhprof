@@ -1,0 +1,39 @@
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(lineChart);
+
+function lineChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('datetime', 'Page Load Datetime');
+    data.addColumn('number', 'Load Time (s)');
+    data.addColumn('number', 'Total Function calls');
+
+    data.addRows(chartRows);
+
+    var options = {
+        pointSize: 5,
+        hAxis: {
+            title: 'Page load date'
+        },
+        vAxes: {
+            0: {
+                title: "Load Time (s)",
+                logScale: false
+            },
+            1: {
+                title: "Function Calls",
+                logScale: false,
+                maxValue: 2
+            }
+        },
+        series:{
+            0:{targetAxisIndex:0},
+            1:{targetAxisIndex:1},
+            2:{targetAxisIndex:1}
+        },
+        backgroundColor: '#f1f8e9'
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart'));
+    chart.draw(data, options);
+}
+

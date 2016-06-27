@@ -1,0 +1,45 @@
+html {
+    font-family: verdana, arial, sans-serif
+}
+body {
+    padding: 15px
+}
+div,
+a,
+label,
+input,
+select,
+form {
+    margin: 0;
+    padding: 0
+}
+th {
+    background: #eee
+}
+th,
+td {
+    padding: 3px;
+    font-size: 11px;
+    font-weight: normal;
+    border: #ccc 1px solid
+}
+#chart {
+    margin-bottom: 30px
+}
+#menu {
+    background: #eee;
+    margin-bottom: 15px;
+    padding: 0 15px
+}
+.right {
+    text-align: right
+}
+.col {
+    display: inline-block;
+    margin-right: 15px
+}
+.info {
+    padding: 5px 15px;
+    background: #eef
+}
+
