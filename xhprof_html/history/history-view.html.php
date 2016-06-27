@@ -25,8 +25,12 @@
     <table cellpadding="0" cellspacing="0" border="0">
         <tr>
             <th></th>
-            <?php foreach($headers as $header): ?>
-                <th><?=$header?></th>
+            <?php foreach($data as $header): ?>
+                <th>
+                    <a href="<?=$xhprof_base_url?>/index.php?source=<?=$header['source']?>&run=<?=$run_id?>">
+                        <?php echo date('Y-m-d<\b\r>H:i:s', $header['datetime']); ?>
+                    </a>
+                </th>
             <?php endforeach; ?>
         </tr>
         <tr>
@@ -44,7 +48,7 @@
     </table>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script>var chartRows = [<?= implode(',', $chart_data); ?>];</script>
+    <script>var chartRows = [<?= implode(',', $google_chart_rows); ?>];</script>
     <script type="text/javascript" src="<?=$history_uri?>/history-chart.js"></script>
 
 <?php elseif(!empty($sources)): ?>

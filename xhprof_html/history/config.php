@@ -4,5 +4,5 @@ $xhprof_webroot = dirname(__DIR__);
 
 $history_uri = $xhprof_base_url . '/history';
 $history_webroot_path = $xhprof_webroot . '/history';
-$default_file_limit = 6;
+$history_default_file_limit = 12;
 

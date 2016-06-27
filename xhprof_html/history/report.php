@@ -26,7 +26,7 @@ if(!empty($files)) {
     });
 
     // limit how many runs will be analysed
-    $file_limit = isset($_GET['limit']) ? $_GET['limit'] : $default_file_limit;
+    $file_limit = isset($_GET['limit']) ? $_GET['limit'] : $history_default_file_limit;
     
     $count = 0;
 
@@ -69,7 +69,6 @@ if(!empty($files)) {
             $symbol_tabs[$run_id] = xhprof_compute_flat_info($reports[$run_id], $stats);
             if(isset($symbol_tabs[$run_id]['main()'])) {
                 $file_modified = date('Y-m-d H:i:s', $file['mtime']);
-                $headers[] = $file_modified . '<br><a href="' . $xhprof_base_url . '/index.php?source=' . $file['source'] . '&run=' . $run_id . '">'.$run_id.'</a>' . PHP_EOL;
                 $total_time = $symbol_tabs[$run_id]['main()']['wt'] / 1000000;
                 $total_function_calls = 0;
 
@@ -78,12 +77,14 @@ if(!empty($files)) {
                 }
 
                 $data[] = [
+                    'source' => $file['source'],
                     'date' => $file_modified,
                     'datetime' => $file['mtime'],
                     'time' => round($total_time, 2),
                     'calls' => $total_function_calls,
-                    'google_chart_row_js' => '[new Date('.date('Y, m, d, h, i, s', $file['mtime']).'), '.round($total_time, 2).', '.$total_function_calls.']',
                 ];
+
+                $google_chart_rows[] = '[new Date('.date('Y, m, d, h, i, s', $file['mtime']).'), '.round($total_time, 2).', '.$total_function_calls.']';
             }
         }
     }
