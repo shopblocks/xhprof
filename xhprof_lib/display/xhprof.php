@@ -1382,7 +1382,10 @@ function profiler_diff_report($url_params,
 function displayXHProfReport($xhprof_runs_impl, $url_params, $source,
                              $run, $wts, $symbol, $sort, $run1, $run2) {
 
-  if ($run) {                              // specific run to display?
+  // enable new history report to compare multiple runs
+  if(isset($_GET['history'])) {
+    include('history/report.php');
+  } else if ($run) {                              // specific run to display?
 
     // run may be a single run or a comma separate list of runs
     // that'll be aggregated. If "wts" (a comma separated list
