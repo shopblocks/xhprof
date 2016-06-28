@@ -77,6 +77,7 @@ if(!empty($files)) {
                 }
 
                 $data[] = [
+                    'run_id' => $run_id,
                     'source' => $file['source'],
                     'date' => $file_modified,
                     'datetime' => $file['mtime'],
@@ -84,7 +85,7 @@ if(!empty($files)) {
                     'calls' => $total_function_calls,
                 ];
 
-                $google_chart_rows[] = '[new Date('.date('Y, m, d, h, i, s', $file['mtime']).'), '.round($total_time, 2).', '.$total_function_calls.']';
+                $google_chart_rows[] = '[new Date('.date('Y, m, d, H, i, s', $file['mtime']).'), '.round($total_time, 2).', '.$total_function_calls.']';
             }
         }
     }

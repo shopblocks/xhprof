@@ -27,7 +27,7 @@
             <th></th>
             <?php foreach($data as $header): ?>
                 <th>
-                    <a href="<?=$xhprof_base_url?>/index.php?source=<?=$header['source']?>&run=<?=$run_id?>">
+                    <a href="<?=$xhprof_base_url?>/index.php?source=<?=$header['source']?>&run=<?=$header['run_id']?>">
                         <?php echo date('Y-m-d<\b\r>H:i:s', $header['datetime']); ?>
                     </a>
                 </th>
