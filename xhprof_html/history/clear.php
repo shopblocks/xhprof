@@ -10,5 +10,5 @@ foreach($files as $file) {
     }
 }
 
-header('Location: ../index.php?history');
+header('Location: ../history.php');
 

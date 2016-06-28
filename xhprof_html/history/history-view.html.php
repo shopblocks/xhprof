@@ -7,7 +7,7 @@
     <div class="col">
         <form method="get">
             <label>Namespace:</label>
-            <select id="in_source" name="source" onchange="window.location='<?=$xhprof_base_url?>/index.php?history&source=' + this.value;">
+            <select id="in_source" name="source" onchange="window.location='<?=$xhprof_base_url?>/history.php?source=' + this.value;">
                 <?php foreach($sources as $source_slug => $source_label): ?>
                     <option value="<?=$source_slug?>"<?=($source_slug == $source ? ' selected' : '')?>><?=$source_label?></option>
                 <?php endforeach; ?>
@@ -22,39 +22,68 @@
 <?php if(!empty($data)): ?>
     <div id="chart"></div>
 
-    <table cellpadding="0" cellspacing="0" border="0">
-        <tr>
-            <th></th>
-            <?php foreach($data as $header): ?>
-                <th>
-                    <a href="<?=$xhprof_base_url?>/index.php?source=<?=$header['source']?>&run=<?=$header['run_id']?>">
-                        <?php echo date('Y-m-d<\b\r>H:i:s', $header['datetime']); ?>
-                    </a>
-                </th>
-            <?php endforeach; ?>
-        </tr>
-        <tr>
-            <th>Load Time (s)</th>
-            <?php foreach($data as $row): ?>
-                <td class="right"><?=$row['time']?></td>
-            <?php endforeach; ?>
-        </tr>
-        <tr>
-            <th>Function calls</th>
-            <?php foreach($data as $row): ?>
-                <td class="right"><?=$row['calls']?></td>
-            <?php endforeach; ?>
-        </tr>
-    </table>
+    <form action="<?=$xhprof_base_url?>/index.php" method="get" target="_blank">
+        <input type="hidden" name="run1" value="">
+        <input type="hidden" name="run2" value="">
+        <input type="hidden" name="source" value="<?=$data[0]['source']?>">
+        
+        <table id="table_history" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <th></th>
+                <?php foreach($data as $header): ?>
+                    <th>
+                        <?=substr($header['run_id'], -4)?>
+                        <br>
+                        <a href="<?=$xhprof_base_url?>/index.php?source=<?=$header['source']?>&run=<?=$header['run_id']?>">
+                            <?php echo date('Y-m-d<\b\r>H:i:s', $header['datetime']); ?>
+                        </a>
+                    </th>
+                <?php endforeach; ?>
+            </tr>
+            <tr>
+                <th>Load Time (s)</th>
+                <?php foreach($data as $row): ?>
+                    <td class="right"><?=$row['time']?></td>
+                <?php endforeach; ?>
+            </tr>
+            <tr>
+                <th>Function calls</th>
+                <?php foreach($data as $row): ?>
+                    <td class="right"><?=$row['calls']?></td>
+                <?php endforeach; ?>
+            </tr>
+            <tr>
+                <th>Compare</th>
+                 <?php foreach($data as $row): ?>
+                 <td class="center"><input class="chk_compare" type="checkbox" value="<?=$row['run_id']?>"></td>
+                <?php endforeach; ?>
+            </tr>           
+        </table>
+
+        <div class="compare">
+            <input class="submit_compare" type="submit" value="Compare two reports" disabled>
+        </div>
+    </form>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script>var chartRows = [<?= implode(',', $google_chart_rows); ?>];</script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script>
+        var chartRows = [<?= implode(',', $google_chart_rows); ?>];
+        var xAxisType = '<?= $google_chart_x_axis_type ?>';
+    </script>
     <script type="text/javascript" src="<?=$history_uri?>/history-chart.js"></script>
 
 <?php elseif(!empty($sources)): ?>
     <div class="info">
         <p>Please select a namespace to view a history report.</p>
     </div>
+
+
+    <?php if(!empty($firstSource)): ?>
+    <script>
+    window.location = '<?=$xhprof_base_url?>/history.php?source=<?=$firstSource?>';
+    </script>
+    <?php endif; ?>
 
 <?php else: ?>
     <div class="info">

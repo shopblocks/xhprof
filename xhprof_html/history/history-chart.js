@@ -3,7 +3,7 @@ google.charts.setOnLoadCallback(lineChart);
 
 function lineChart() {
     var data = new google.visualization.DataTable();
-    data.addColumn('datetime', 'Page Load Datetime');
+    data.addColumn(xAxisType, 'Page Load Datetime');
     data.addColumn('number', 'Load Time (s)');
     data.addColumn('number', 'Total Function calls');
 
@@ -36,4 +36,27 @@ function lineChart() {
     var chart = new google.visualization.LineChart(document.getElementById('chart'));
     chart.draw(data, options);
 }
+
+$(document).ready(function(){
+    var checked = 0;
+    $('.chk_compare').on('change', function() {
+        checked = $('.chk_compare:checked').length;
+        if(checked == 3) {
+            $(this).prop('checked', false);
+            return false;
+        }
+
+        if(checked == 2) {
+            var input_num = 1;
+            $('.chk_compare:checked').each(function() {
+               $('input[name=run' + input_num + ']').val($(this).val()); 
+               input_num++;
+            });
+
+            $('.submit_compare').attr('disabled', false);
+        } else {
+            $('.submit_compare').attr('disabled', true);
+        }
+    });
+});
 

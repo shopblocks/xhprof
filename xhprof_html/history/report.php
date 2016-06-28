@@ -57,6 +57,14 @@ if(!empty($files)) {
     if(!empty($sources)) {
         $sources['_all'] = 'Please select';
         ksort($sources);
+
+        // if only one source is available, redirect the user to it
+        // see javascript redirect in view
+        if(count($sources) == 2) {
+            end($sources);
+            $firstSource = key($sources);
+            reset($sources);
+        }
     }
 
     if(!empty($file_run_ids) && !empty($_GET['source'])) {
@@ -85,7 +93,15 @@ if(!empty($files)) {
                     'calls' => $total_function_calls,
                 ];
 
-                $google_chart_rows[] = '[new Date('.date('Y, m, d, H, i, s', $file['mtime']).'), '.round($total_time, 2).', '.$total_function_calls.']';
+                $google_chart_x_axis_type = 'datetime';
+                $google_chart_x_axis_type = 'string';
+                switch($google_chart_x_axis_type) {
+                case 'datetime':
+                    $xdata = 'new Date('.date('Y, m, d, H, i, s', $file['mtime']).')';
+                case 'string':
+                    $xdata = '"' . substr($run_id, -4) . '"';
+                }
+                $google_chart_rows[] = '[' . $xdata . ', '.round($total_time, 2).', '.$total_function_calls.']';
             }
         }
     }

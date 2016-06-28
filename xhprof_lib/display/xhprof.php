@@ -1383,7 +1383,7 @@ function displayXHProfReport($xhprof_runs_impl, $url_params, $source,
                              $run, $wts, $symbol, $sort, $run1, $run2) {
 
   // enable new history report to compare multiple runs
-  if(isset($_GET['history'])) {
+  if(!empty($GLOBALS['HISTORY'])) {
     include('history/report.php');
   } else if ($run) {                              // specific run to display?
 
