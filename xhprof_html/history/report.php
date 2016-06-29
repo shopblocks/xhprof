@@ -93,14 +93,24 @@ if(!empty($files)) {
                     'calls' => $total_function_calls,
                 ];
 
-                $google_chart_x_axis_type = 'datetime';
-                $google_chart_x_axis_type = 'string';
+                if(!empty($_GET['xaxis'])) {
+                    $google_chart_x_axis_type = $_GET['xaxis'];
+                } else {
+                    $google_chart_x_axis_type = $history_default_xaxis_type;
+                }
+
                 switch($google_chart_x_axis_type) {
                 case 'datetime':
                     $xdata = 'new Date('.date('Y, m, d, H, i, s', $file['mtime']).')';
-                case 'string':
-                    $xdata = '"' . substr($run_id, -4) . '"';
+                    $google_chart_x_axis_label = 'Date';
+                    break;
+                default:
+                    $google_chart_x_axis_type = 'string';
+                    $xdata = '"rr' . substr($run_id, -4) . '"';
+                    $google_chart_x_axis_label = 'run_id';
+                    break;
                 }
+
                 $google_chart_rows[] = '[' . $xdata . ', '.round($total_time, 2).', '.$total_function_calls.']';
             }
         }

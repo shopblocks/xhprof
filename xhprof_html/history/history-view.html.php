@@ -55,7 +55,7 @@
             <tr>
                 <th>Compare</th>
                  <?php foreach($data as $row): ?>
-                 <td class="center"><input class="chk_compare" type="checkbox" value="<?=$row['run_id']?>"></td>
+                 <td class="center td_compare"><input class="chk_compare" type="checkbox" value="<?=$row['run_id']?>"></td>
                 <?php endforeach; ?>
             </tr>           
         </table>
@@ -70,6 +70,7 @@
     <script>
         var chartRows = [<?= implode(',', $google_chart_rows); ?>];
         var xAxisType = '<?= $google_chart_x_axis_type ?>';
+        var xAxisLabel = '<?= $google_chart_x_axis_label ?>';
     </script>
     <script type="text/javascript" src="<?=$history_uri?>/history-chart.js"></script>
 

@@ -3,7 +3,7 @@ google.charts.setOnLoadCallback(lineChart);
 
 function lineChart() {
     var data = new google.visualization.DataTable();
-    data.addColumn(xAxisType, 'Page Load Datetime');
+    data.addColumn(xAxisType, xAxisLabel);
     data.addColumn('number', 'Load Time (s)');
     data.addColumn('number', 'Total Function calls');
 
@@ -12,7 +12,7 @@ function lineChart() {
     var options = {
         pointSize: 5,
         hAxis: {
-            title: 'Page load date'
+            title: xAxisLabel
         },
         vAxes: {
             0: {
@@ -49,13 +49,19 @@ $(document).ready(function(){
         if(checked == 2) {
             var input_num = 1;
             $('.chk_compare:checked').each(function() {
-               $('input[name=run' + input_num + ']').val($(this).val()); 
-               input_num++;
+                $('input[name=run' + input_num + ']').val($(this).val()); 
+                input_num++;
             });
 
-            $('.submit_compare').attr('disabled', false);
+            $('.submit_compare').prop('disabled', false);
         } else {
-            $('.submit_compare').attr('disabled', true);
+            $('.submit_compare').prop('disabled', true);
+        }
+    });
+
+    $('.td_compare').on('click', function(e) {
+        if ($(e.target).is('.td_compare')) {
+            $(this).find('input').click();
         }
     });
 });
