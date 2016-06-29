@@ -21,6 +21,11 @@
 
 <?php if(!empty($data)): ?>
     <div id="chart"></div>
+    <div id="chart_options">
+        X-Axis:
+        <a href="<?=$xhprof_base_url?>/history.php?source=<?=$source?>&xaxis=datetime">Date</a>
+        <a href="<?=$xhprof_base_url?>/history.php?source=<?=$source?>&xaxis=string">run_id</a>
+    </div>
 
     <form action="<?=$xhprof_base_url?>/index.php" method="get" target="_blank">
         <input type="hidden" name="run1" value="">

@@ -24,9 +24,16 @@ td {
     border: #ccc 1px solid;
 }
 #chart {
-    margin-bottom: 30px;
+    margin-bottom: 1px;
     height: 300px;
     width: 100%;
+}
+#chart_options {
+    background: #eee;
+    text-align: right;
+    padding: 5px 15px;
+    margin-bottom: 15px;
+    font-size: 12px;
 }
 #menu {
     background: #eee;
