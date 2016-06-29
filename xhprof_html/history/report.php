@@ -106,7 +106,7 @@ if(!empty($files)) {
                     break;
                 default:
                     $google_chart_x_axis_type = 'string';
-                    $xdata = '"rr' . substr($run_id, -4) . '"';
+                    $xdata = '"' . substr($run_id, -4) . '"';
                     $google_chart_x_axis_label = 'run_id';
                     break;
                 }
