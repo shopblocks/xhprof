@@ -44,10 +44,10 @@ if(!empty($files)) {
                     'name' => $filename,
                     'source' => $source_slug,
                 ];
+
+                $count++; // only count if added to $file_run_ids array
             }
         }
-
-        $count++;
 
         if($count >= $file_limit) {
             break;
