@@ -1381,7 +1381,6 @@ function profiler_diff_report($url_params,
  */
 function displayXHProfReport($xhprof_runs_impl, $url_params, $source,
                              $run, $wts, $symbol, $sort, $run1, $run2) {
-
   // enable new history report to compare multiple runs
   if(!empty($GLOBALS['HISTORY'])) {
     include('history/report.php');
@@ -1394,10 +1393,15 @@ function displayXHProfReport($xhprof_runs_impl, $url_params, $source,
     //
     $runs_array = explode(",", $run);
 
+    echo "<pre>";
+        print_r($runs_array);
+        exit;
+
     if (count($runs_array) == 1) {
-      $xhprof_data = $xhprof_runs_impl->get_run($runs_array[0],
-                                                $source,
-                                                $description);
+        echo "<pre>";
+        print_r($source);
+        exit;
+      $xhprof_data = unserialize(file_get_contents("/var/www/sites/current/admin.myshopblocks.com/$source"));
     } else {
       if (!empty($wts)) {
         $wts_array  = explode(",", $wts);

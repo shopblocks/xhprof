@@ -17,7 +17,8 @@ if(!is_dir($xhprof_webroot)) {
 }
 
 // get recent xhprof reports and order by modified time
-$files = glob(ini_get("xhprof.output_dir") . '/*');
+$path = "/var/www/sites/current/admin.myshopblocks.com/traces";
+$files = glob($path . '/*');
 
 if(!empty($files)) {
     // order files by modified time descending so we always get the newest reports first
@@ -73,7 +74,8 @@ if(!empty($files)) {
 
         // build data
         foreach($file_run_ids as $run_id => $file) {
-            $reports[$run_id] = $xhprof_runs_impl->get_run($run_id, $file['source'], $description);
+//            $reports[$run_id] = $xhprof_runs_impl->get_run($run_id, $file['source'], $description);
+            $reports[$run_id] = unserialize(file_get_contents("{$path}/{$file['name']}"));
             $symbol_tabs[$run_id] = xhprof_compute_flat_info($reports[$run_id], $stats);
             if(isset($symbol_tabs[$run_id]['main()'])) {
                 $file_modified = date('Y-m-d H:i:s', $file['mtime']);
