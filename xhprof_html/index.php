@@ -35,6 +35,7 @@
 // are at the same level.
 $GLOBALS['XHPROF_LIB_ROOT'] = dirname(__FILE__) . '/../xhprof_lib';
 
+require_once 'history/config.php';
 require_once $GLOBALS['XHPROF_LIB_ROOT'].'/display/xhprof.php';
 
 // param name, its type, and default value
@@ -73,6 +74,8 @@ echo "</head>";
 
 echo "<body>";
 
+require 'history/header.php';
+
 $vbar  = ' class="vbar"';
 $vwbar = ' class="vwbar"';
 $vwlbar = ' class="vwlbar"';
@@ -80,7 +83,7 @@ $vbbar = ' class="vbbar"';
 $vrbar = ' class="vrbar"';
 $vgbar = ' class="vgbar"';
 
-$xhprof_runs_impl = new XHProfRuns_Default("/var/www/sites/current/admin.myshopblocks.com/traces");
+$xhprof_runs_impl = new XHProfRuns_Default(XHPROF_TRACES);
 
 displayXHProfReport($xhprof_runs_impl, $params, $source, $run, $wts,
                     $symbol, $sort, $run1, $run2);

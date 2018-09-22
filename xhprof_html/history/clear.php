@@ -1,5 +1,6 @@
 <?php
-$files = glob(ini_get("xhprof.output_dir") . '/*');
+require 'config.php';
+$files = glob(XHPROF_TRACES . '/*');
 
 foreach($files as $file) {
     $filename = basename($file);
